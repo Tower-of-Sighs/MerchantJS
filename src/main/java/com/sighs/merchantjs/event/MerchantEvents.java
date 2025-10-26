@@ -7,6 +7,7 @@ public interface MerchantEvents {
 
     EventGroup GROUP = EventGroup.of("MerchantEvents");
 
-    EventHandler AFTER_TRADE = GROUP.client("modifyVariedModel", () -> AfterTradeEventJS.class);
+    EventHandler AFTER_TRADE = GROUP.server("afterTrade", () -> AfterTradeEventJS.class);
+    EventHandler SWITCH_TRADE = GROUP.client("switchTrade", () -> SwitchTradeEvent.class);
 
 }

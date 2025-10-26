@@ -8,6 +8,7 @@
     "MerchantResultSlotMixin"
   ],
   "client": [
+    "MerchantScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1
