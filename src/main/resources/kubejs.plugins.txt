@@ -1,1 +1,1 @@
-com.sighs.generalfeedback.JSPlugin
+com.sighs.merchantjs.MerchantJSPlugin
