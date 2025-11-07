@@ -23,7 +23,7 @@ side = "BOTH"
 [[dependencies.merchantjs]]
 modId = "kubejs"
 type = "required"
-versionRange = "[2101.7.2-build.277,)"
+versionRange = "[2101.7.1-build.181,)"
 ordering = "NONE"
 side = "BOTH"
 

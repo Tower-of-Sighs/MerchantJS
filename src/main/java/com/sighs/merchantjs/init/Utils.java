@@ -1,12 +1,12 @@
 package com.sighs.merchantjs.init;
 
-import dev.latvian.mods.kubejs.plugin.builtin.wrapper.ItemWrapper;
-import dev.latvian.mods.rhino.Context;
-import dev.latvian.mods.rhino.ContextFactory;
+import com.mojang.serialization.Dynamic;
 import dev.latvian.mods.rhino.util.HideFromJS;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentPredicate;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -15,6 +15,7 @@ import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.item.trading.MerchantOffers;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class Utils {
@@ -43,20 +44,18 @@ public class Utils {
 
         CompoundTag merge = tag.merge(nbt);
 
-        Context ctx = new Context(new ContextFactory());
-
-        String buy = merge.getString("buy").replaceAll("'", "");
-        String buyB = merge.getString("buyB").replaceAll("'", "");
-        String sell = merge.getString("sell").replaceAll("'", "");
+        Tag buy = merge.get("buy");
+        Tag buyB = merge.get("buyB");
+        Tag sell = merge.get("sell");
         int uses = merge.getInt("uses");
         int maxUses = merge.getInt("maxUses");
         int xp = merge.getInt("xp");
         int priceMultiplier = merge.getInt("priceMultiplier");
         int demand = merge.getInt("demand");
 
-        ItemStack buyItem = ItemWrapper.wrap(ctx, buy);
-        ItemStack buyBItem = ItemWrapper.wrap(ctx, buyB);
-        ItemStack sellItem = ItemWrapper.wrap(ctx, sell);
+        ItemStack buyItem = ItemStack.CODEC.parse(new Dynamic<>(NbtOps.INSTANCE, buy)).getOrThrow();
+        ItemStack buyBItem = Objects.equals(buyB, new CompoundTag()) ? ItemStack.EMPTY : ItemStack.CODEC.parse(new Dynamic<>(NbtOps.INSTANCE, buyB)).getOrThrow();
+        ItemStack sellItem = ItemStack.CODEC.parse(new Dynamic<>(NbtOps.INSTANCE, sell)).getOrThrow();
 
         return new MerchantOffer(
                 new ItemCost(Holder.direct(buyItem.getItem()), buyItem.getCount(), DataComponentPredicate.allOf(buyItem.getComponents())),
