@@ -3,7 +3,7 @@ package com.sighs.merchantjs.init;
 import com.mojang.serialization.Dynamic;
 import dev.latvian.mods.rhino.util.HideFromJS;
 import net.minecraft.core.Holder;
-import net.minecraft.core.component.DataComponentPredicate;
+import net.minecraft.core.component.DataComponentExactPredicate;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
@@ -47,19 +47,19 @@ public class Utils {
         Tag buy = merge.get("buy");
         Tag buyB = merge.get("buyB");
         Tag sell = merge.get("sell");
-        int uses = merge.getInt("uses");
-        int maxUses = merge.getInt("maxUses");
-        int xp = merge.getInt("xp");
-        int priceMultiplier = merge.getInt("priceMultiplier");
-        int demand = merge.getInt("demand");
+        int uses = merge.getIntOr("uses", 0);
+        int maxUses = merge.getIntOr("maxUses", 99);
+        int xp = merge.getIntOr("xp", 0);
+        float priceMultiplier = merge.getFloatOr("priceMultiplier", 0);
+        int demand = merge.getIntOr("demand", 0);
 
         ItemStack buyItem = ItemStack.CODEC.parse(new Dynamic<>(NbtOps.INSTANCE, buy)).getOrThrow();
         ItemStack buyBItem = Objects.equals(buyB, new CompoundTag()) ? ItemStack.EMPTY : ItemStack.CODEC.parse(new Dynamic<>(NbtOps.INSTANCE, buyB)).getOrThrow();
         ItemStack sellItem = ItemStack.CODEC.parse(new Dynamic<>(NbtOps.INSTANCE, sell)).getOrThrow();
 
         return new MerchantOffer(
-                new ItemCost(Holder.direct(buyItem.getItem()), buyItem.getCount(), DataComponentPredicate.allOf(buyItem.getComponents())),
-                Optional.of(new ItemCost(Holder.direct(buyBItem.getItem()), buyBItem.getCount(), DataComponentPredicate.allOf(buyBItem.getComponents()))),
+                new ItemCost(Holder.direct(buyItem.getItem()), buyItem.getCount(), DataComponentExactPredicate.allOf(buyItem.getComponents())),
+                Optional.of(new ItemCost(Holder.direct(buyBItem.getItem()), buyBItem.getCount(), DataComponentExactPredicate.allOf(buyBItem.getComponents()))),
                 sellItem,
                 uses,
                 maxUses,

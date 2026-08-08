@@ -70,4 +70,9 @@ public class VisualMerchant implements Merchant {
     public boolean isClientSide() {
         return false;
     }
+
+    @Override
+    public boolean stillValid(Player player) {
+        return tradingPlayer == player;
+    }
 }

@@ -1,14 +1,13 @@
 modLoader = "javafml"
-loaderVersion = "[${loader_version},)"
+loaderVersion = "[3,)"
 license = "GNU LGPL 3.0"
 
 [[mods]]
 modId = "merchantjs"
-version = "1.0.0"
+version = "1.0.1"
 displayName = "MerchantJS"
-authors = "zhenshiz"
-description = ""
-logoFile = "icon.png"
+authors = "Tower of Sighs"
+description = "KubeJS addon that expands the trading system. Create fully customizable merchant trades anywhere, unlock trades selectively, and hook afterTrade/switchTrade events for both custom and vanilla merchants."
 
 [[accessTransformers]]
 file="META-INF/accesstransformer.cfg"
@@ -16,21 +15,21 @@ file="META-INF/accesstransformer.cfg"
 [[dependencies.merchantjs]]
 modId = "neoforge"
 type = "required"
-versionRange = "[21.1.197,)"
+versionRange = "[26.1.2,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.merchantjs]]
 modId = "kubejs"
 type = "required"
-versionRange = "[2101.7.1-build.181,)"
+versionRange = "[26.1.2-8.0.4,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.merchantjs]]
 modId = "minecraft"
 type = "required"
-versionRange = "[1.21,1.21.2)"
+versionRange = "[26.1.2,26.2)"
 ordering = "NONE"
 side = "BOTH"
 
