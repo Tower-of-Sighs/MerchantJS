@@ -38,7 +38,7 @@ public class VisualMerchant implements Merchant {
 
     @Override
     public void notifyTrade(MerchantOffer merchantOffer) {
-
+        merchantOffer.increaseUses();
     }
 
     @Override
